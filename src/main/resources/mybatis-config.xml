@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 参数设置 -->
+    <settings>
+        <!-- 这个配置使全局的映射器启用或禁用缓存 -->
+        <setting name="cacheEnabled" value="true" />
+        <!-- 设置超时时间，它决定驱动等待一个数据库响应的时间 -->
+        <setting name="defaultStatementTimeout" value="25000" />
+        <!--是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射。-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 允许JDBC支持生成的键。需要适合的驱动。如果设置为true则这个设置强制生成的键被使用，尽管一些驱动拒绝兼容但仍然有效（比如Derby） -->
+        <setting name="useGeneratedKeys" value="true" />
+    </settings>
+</configuration>
