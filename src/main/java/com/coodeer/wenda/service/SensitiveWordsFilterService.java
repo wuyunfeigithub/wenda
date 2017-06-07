@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * Created by common on 2017/6/6.
+ * 提供敏感词过滤服务
  */
 @Service
 public class SensitiveWordsFilterService implements InitializingBean{
