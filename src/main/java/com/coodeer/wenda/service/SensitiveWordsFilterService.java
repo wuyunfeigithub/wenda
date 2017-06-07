@@ -28,9 +28,9 @@ public class SensitiveWordsFilterService implements InitializingBean{
             inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("SensitiveWords.txt");
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            String line = null;
-            while((line = reader.readLine()) != null){
-                addWord(line.trim());
+            String[] keywords = reader.readLine().split("\\|");
+            for (String key : keywords) {
+                addWord(key);
             }
 
         } catch (Exception e){
