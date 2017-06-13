@@ -25,7 +25,7 @@ public interface MessageDAO {
     @Select({"select count(id) from ", TABLE_NAME, " where has_read=0 and to_id=#{userId} and conversation_id=#{conversationId}"})
     int getConvesationUnreadCount(@Param("userId") int userId, @Param("conversationId") String conversationId);
 
-    @Select({"select ", INSERT_FIELDS, " ,count(id) as id from ( select * from ", TABLE_NAME, " where from_id=#{userId} or to_id=#{userId} order by id desc) tt group by conversation_id  order by created_date desc limit #{offset}, #{limit}"})
+    @Select({"select ", INSERT_FIELDS, " ,count(id) as id from ( select * from ", TABLE_NAME, " where from_id=#{userId} or to_id=#{userId} order by created_date decs) tt group by conversation_id  order by created_date desc limit #{offset}, #{limit}"})
     List<Message> getConversationList(@Param("userId") int userId,
                                       @Param("offset") int offset, @Param("limit") int limit);
 }
