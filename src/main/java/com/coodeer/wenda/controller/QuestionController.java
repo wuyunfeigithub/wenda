@@ -1,9 +1,8 @@
 package com.coodeer.wenda.controller;
 
 import com.coodeer.wenda.dao.UserDAO;
-import com.coodeer.wenda.model.HostHolder;
-import com.coodeer.wenda.model.Question;
-import com.coodeer.wenda.model.User;
+import com.coodeer.wenda.model.*;
+import com.coodeer.wenda.service.CommentService;
 import com.coodeer.wenda.service.QuestionService;
 import com.coodeer.wenda.service.UserService;
 import com.coodeer.wenda.utils.MyUtil;
@@ -13,7 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.View;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by common on 2017/6/6.
@@ -30,6 +32,9 @@ public class QuestionController {
     UserService userService;
 
     @Autowired
+    CommentService commentService;
+
+    @Autowired
     HostHolder hostHolder;
 
     @RequestMapping(value = "/question/add", method = {RequestMethod.POST})
@@ -44,7 +49,7 @@ public class QuestionController {
             question.setCreatedDate(new Date());
             question.setCommentCount(0);
 
-            if (hostHolder == null){
+            if (hostHolder.getUser() == null){
                 return MyUtil.getJSONString(999);
             }
             else {
@@ -60,11 +65,22 @@ public class QuestionController {
     }
 
     @RequestMapping(value = {"/question/{id}"}, method = RequestMethod.GET)
-    public String getQuestion(Model model, @PathVariable("id") int id){
-        Question question = questionService.getQuestion(id);
+    public String getQuestion(Model model, @PathVariable("id") int qid){
+        Question question = questionService.getQuestion(qid);
         User user = userService.getUser(question.getUserId());
         model.addAttribute("question", question);
         model.addAttribute("user", user);
+
+        List<Comment> comments = commentService.getCommentsByEntity(qid, EntityType.ENTITY_QUESTION);
+        List<ViewObject> vo = new ArrayList<>();
+
+        for (Comment comment : comments){
+            ViewObject viewObject = new ViewObject();
+            viewObject.set("comment", comment);
+            viewObject.set("user", userService.getUser(comment.getUserId()));
+            vo.add(viewObject);
+        }
+        model.addAttribute("comments", vo);
 
         return "detail";
     }

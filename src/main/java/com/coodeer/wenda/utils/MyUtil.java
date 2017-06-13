@@ -13,6 +13,8 @@ import java.util.Map;
 public class MyUtil {
     private static final Logger logger = LoggerFactory.getLogger(MyUtil.class);
 
+    public static int ANONYMOUS_USERID = -1;
+
     public static String getJSONString(int code, String msg){
         JSONObject json = new JSONObject();
         json.put("code", code);
