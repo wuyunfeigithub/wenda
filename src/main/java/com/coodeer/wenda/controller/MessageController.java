@@ -62,6 +62,7 @@ public class MessageController {
     public String getConversationDetail(Model model, @RequestParam("conversationId") String conversationId){
         try {
             List<Message> messages = messageService.getConversationDetail(conversationId, 0, 10);
+            messageService.updateConversationUnreadCount(conversationId);
             List<ViewObject> vo = new ArrayList<>();
             for(Message message : messages){
                 ViewObject viewObject = new ViewObject();
