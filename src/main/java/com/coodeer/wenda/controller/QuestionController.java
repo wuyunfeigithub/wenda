@@ -3,6 +3,7 @@ package com.coodeer.wenda.controller;
 import com.coodeer.wenda.dao.UserDAO;
 import com.coodeer.wenda.model.*;
 import com.coodeer.wenda.service.CommentService;
+import com.coodeer.wenda.service.LikeService;
 import com.coodeer.wenda.service.QuestionService;
 import com.coodeer.wenda.service.UserService;
 import com.coodeer.wenda.utils.MyUtil;
@@ -33,6 +34,9 @@ public class QuestionController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    LikeService likeService;
 
     @Autowired
     HostHolder hostHolder;
@@ -77,6 +81,13 @@ public class QuestionController {
         for (Comment comment : comments){
             ViewObject viewObject = new ViewObject();
             viewObject.set("comment", comment);
+            if(hostHolder.getUser() == null){
+                viewObject.set("liked", 0);
+            }
+            else{
+                viewObject.set("liked", likeService.getLikeStatus(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, comment.getId()));
+            }
+            viewObject.set("likeCount", likeService.getLikeCount(EntityType.ENTITY_COMMENT, comment.getId()));
             viewObject.set("user", userService.getUser(comment.getUserId()));
             vo.add(viewObject);
         }
