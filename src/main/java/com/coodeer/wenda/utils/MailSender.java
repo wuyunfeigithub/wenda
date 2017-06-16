@@ -25,6 +25,8 @@ public class MailSender implements InitializingBean {
 
     private static String username = "";
     private static String password = "";
+    private static String host = "smtp.163.com";
+    private static int port = 465;
 
     @Autowired
     private VelocityEngine velocityEngine;
@@ -57,9 +59,9 @@ public class MailSender implements InitializingBean {
         mailSender = new JavaMailSenderImpl();
         mailSender.setUsername(username);
         mailSender.setPassword(password);
-        mailSender.setHost("smtp.163.com");
+        mailSender.setHost(host);
         //mailSender.setHost("smtp.qq.com");
-        mailSender.setPort(465);
+        mailSender.setPort(port);
         mailSender.setProtocol("smtps");
         mailSender.setDefaultEncoding("utf8");
         Properties javaMailProperties = new Properties();
