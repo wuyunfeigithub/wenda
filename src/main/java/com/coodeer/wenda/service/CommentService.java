@@ -2,6 +2,7 @@ package com.coodeer.wenda.service;
 
 import com.coodeer.wenda.dao.CommentDAO;
 import com.coodeer.wenda.model.Comment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
@@ -38,4 +39,7 @@ public class CommentService {
         return commentDAO.updateStatus(entityId, entityType, 1) > 0 ? 1 : 0;
     }
 
+    public Comment getCommentById(int commentId){
+        return commentDAO.getCommentById(commentId);
+    }
 }
