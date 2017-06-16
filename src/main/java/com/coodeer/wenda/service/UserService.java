@@ -61,6 +61,7 @@ public class UserService {
 
         String ticket = addTicket(user.getId());
         map.put("ticket", ticket);
+        map.put("userId", String.valueOf(user.getId()));
 
         return  map;
     }
@@ -92,6 +93,7 @@ public class UserService {
 
         String ticket = addTicket(user.getId());
         map.put("ticket", ticket);
+        map.put("userId", String.valueOf(user.getId()));
 
         return  map;
     }
