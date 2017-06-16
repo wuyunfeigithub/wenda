@@ -1,5 +1,8 @@
 package com.coodeer.wenda.controller;
 
+import com.coodeer.wenda.async.EventModel;
+import com.coodeer.wenda.async.EventProducer;
+import com.coodeer.wenda.async.EventType;
 import com.coodeer.wenda.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -24,6 +27,9 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     @RequestMapping(path = "/reglogin")
     public String reg(Model model,
                        @RequestParam(value = "next", required = false) String next){
@@ -47,6 +53,13 @@ public class LoginController {
                 if(rememberme){
                     cookie.setMaxAge(3600*24*5);
                 }
+
+                /*
+                eventProducer.fireEvent(new EventModel(EventType.LOGIN)
+                        .setExt("username", username).setExt("email", "1097928227@qq.com")
+                        .setActorId(Integer.valueOf(map.get("userId"))));
+                */
+
                 response.addCookie(cookie);
                 if(!StringUtils.isBlank(next)){
                     return "redirect:" + next;
