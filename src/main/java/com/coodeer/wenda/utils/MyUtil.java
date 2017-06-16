@@ -13,7 +13,10 @@ import java.util.Map;
 public class MyUtil {
     private static final Logger logger = LoggerFactory.getLogger(MyUtil.class);
 
+    public static String mySiteAdress = "http://localhost:8080";
+
     public static int ANONYMOUS_USERID = -1;
+    public static int SYSTEM_USERID = 1;
 
     public static String getJSONString(int code, String msg){
         JSONObject json = new JSONObject();
